@@ -20,7 +20,7 @@
 
 import { ethers, upgrades } from "hardhat";
 
-const BEACON_ADDRESS = "..."; // replace with your Beacon contract address
+const BEACON_ADDRESS = "0xAE1d7145E6480663510Aec265bfb9db0FEf5D0E0"; // replace with your Beacon contract address
 
 async function main() {
   console.log("Fetching TopicV2 contract...");
@@ -30,7 +30,7 @@ async function main() {
   await upgrades.upgradeBeacon(BEACON_ADDRESS, TopicV2);
   console.log("Beacon upgraded to TopicV2");
 
-  const TOPIC_PROXY_ADDRESS = "..."; // replace with your Topic beacon proxy contract address
+  const TOPIC_PROXY_ADDRESS = "0xEd2eC5bf6bF99d039F461480C29B4e4da407c486"; // replace with your Topic beacon proxy contract address
   const topicProxy = await ethers.getContractAt("TopicV2", TOPIC_PROXY_ADDRESS);
 
   console.log("Setting message on TopicV2 beacon proxy to 'Hello, Hedera' for TopicId:", await (topicProxy as unknown as TopicContract).getTopicId());

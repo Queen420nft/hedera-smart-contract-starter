@@ -1,4 +1,5 @@
-# Upgradeable Smart Contract Starter with Proxies and Beacon Proxies
+# [Upgradeable Smart Contract Starter with Proxies and Beacon Proxies](https://github.com/Queen420nft/hedera-smart-contract-starter?tab=readme-ov-file)
+_**This document contains the information necessary for use the example Hedera example but without local node.**_
 
 This project provides a hands-on demonstration of using upgradeable smart contracts with OpenZeppelin's upgrades plugins in Hardhat. Specifically, it is a smart contract starter project that illustrates the use of both Proxies and Beacon Proxies.
 
@@ -19,24 +20,19 @@ This project contains two contracts: `Topic` and `TopicV2`.
 
 We use OpenZeppelin's upgrades plugins to deploy these contracts as upgradeable contracts.
 
-## Setting up Local Node
+## Setting up Testnet
 
-Before running this project, you need to set up your local node and private key in the `.env` file.
+Before running this project, you need to set up your testnet private key in the `.env` file.
 
-:information_source: [Make sure you meet these requirements and docker settings for local node to work](https://github.com/hashgraph/hedera-local-node#requirements)
+:information_source: [Create a account in portal.hedera.com](https://portal.hedera.com/dashboard)
 
-1. Run the hedera local node:
+1. Copy your code from Account `ECDSA`>`HEX Encoded Private Key`
 
-    ```sh
-    hedera start -d
-    ```
 
-    Note: You can run this in a separate terminal window and keep it running in the background.
-
-2. Add a `ECDSA_PRIVATE_KEY_LOCAL` entry to the `.env` file after the local node starts up and generates your accounts. This should be your local node's ECDSA private key, which you would use for signing transactions on the local network.
+2. Copy it in a `ECDSA_PRIVATE_KEY_TEST` entry to the `.env` file. _Probably the copiler should you mark a error requering a `ECDSA_PRIVATE_KEY_LOCAL`, in this case, you can copy the same private key.
 
     ```
-    ECDSA_PRIVATE_KEY_LOCAL=your-generated-private-ecdsa-key
+    ECDSA_PRIVATE_KEY_TEST=your-generated-private-ecdsa-key
     ```
 
 ## Running the Project
@@ -56,7 +52,7 @@ Before running this project, you need to set up your local node and private key 
 3. Deploy the `Topic` contract:
 
     ```sh
-    npx hardhat run scripts/create-topic.ts --network local
+    npx hardhat run scripts/create-topic.ts --network testnet
     ```
 
     This script deploys the `Topic` contract as a proxy contract, initializes it with a Topic ID '0.0.1234', and prints the address of the proxy contract.
@@ -64,7 +60,7 @@ Before running this project, you need to set up your local node and private key 
 4. Upgrade the `Topic` contract to `TopicV2`:
 
     ```sh
-    npx hardhat run scripts/upgrade-topic.ts --network local
+    npx hardhat run scripts/upgrade-topic.ts --network testnet
     ```
 
     This script upgrades the `Topic` contract to `TopicV2`, sets a new message, and prints the updated message.
@@ -72,7 +68,7 @@ Before running this project, you need to set up your local node and private key 
 5. Deploy the `Topic` contract as a Beacon Proxy:
 
     ```sh
-    npx hardhat run scripts/create-topic-beacon.ts --network local
+    npx hardhat run scripts/create-topic-beacon.ts --network testnet
     ```
 
     This script deploys a Beacon and a Beacon Proxy for the `Topic` contract, initializes the Beacon Proxy with a Topic ID '0.0.1234', and prints the addresses of the Beacon and the Beacon Proxy.
@@ -80,7 +76,7 @@ Before running this project, you need to set up your local node and private key 
 6. Upgrade the `Topic` contract to `TopicV2` for the Beacon Proxy:
 
     ```sh
-    npx hardhat run scripts/upgrade-topic-beacon.ts --network local
+    npx hardhat run scripts/upgrade-topic-beacon.ts --network testnet
     ```
 
     This script upgrades the Beacon to point to `TopicV2`, effectively upgrading all Beacon Proxies. It sets a new message on the Beacon Proxy and prints the updated message.
@@ -104,14 +100,3 @@ To test the contracts, we've provided a testing suite in the `test` directory. Y
     ```
 
 The test suite uses Waffle for fast, reliable testing of Ethereum contracts. It tests the base functionality of the `Topic` and `TopicV2` contracts, as well as the upgradeability provided by the proxies.
-
-# Contributing
-Contributions are welcome. Please see the
-[contributing guide](https://github.com/hashgraph/.github/blob/main/CONTRIBUTING.md)
-to see how you can get involved.
-
-# Code of Conduct
-This project is governed by the
-[Contributor Covenant Code of Conduct](https://github.com/hashgraph/.github/blob/main/CODE_OF_CONDUCT.md). By
-participating, you are expected to uphold this code of conduct. Please report unacceptable behavior
-to [oss@hedera.com](mailto:oss@hedera.com) 
